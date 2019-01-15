@@ -29,6 +29,12 @@ checkloop:
 		echo $${i};\
 	done
 
+checkloop2: DIRNAME=abc
+checkloop2:
+	@idx=1 ; while [[ $$idx -le 10 ]] ; do \
+		rm -rf ./docker/node/${DIRNAME}/data$$idx ; \
+		((idx = idx + 1)) ; \
+	done ;
 
 valiable: TYPE=btc
 valiable: content
