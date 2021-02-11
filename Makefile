@@ -1,7 +1,19 @@
 COUNT=1
 DIR1=path/filename
 
-#checkif: SHELL:=/bin/bash
+# how to use Array
+SERVICES = app1 app2 app3 app4 app5
+.PHONY: $(SERVICES)
+$(SERVICES):
+	GOOS=linux GOARCH=amd64 go build ${gcflag} -i -o ./bin/linux/$@ ./$@
+
+.PHONY: build-all
+build-all: $(SERVICES)
+
+ 
+# how to use if statement
+.PHONY: checkif
+#checkif: SHELL: =/bin/bash
 checkif:
 
 	# Number
@@ -23,12 +35,17 @@ checkif:
 	fi
 
 
+# how to use for loop
+.PHONY: checkloop
 checkloop: max=10
 checkloop:
 	@for ((i=0; i < ${max}; i++)); do\
 		echo $${i};\
 	done
 
+
+# how to use for loop 2
+.PHONY: checkloop2
 checkloop2: DIRNAME=abc
 checkloop2:
 	@idx=1 ; while [[ $$idx -le 10 ]] ; do \
@@ -36,12 +53,8 @@ checkloop2:
 		((idx = idx + 1)) ; \
 	done ;
 
-valiable: TYPE=btc
-valiable: content
 
-valiable2: TYPE=eth
-valiable2: content
-
+.PHONY: content
 content:
 	@echo ${TYPE}
 	@if [ ${TYPE} = 'btc' ]; then\
@@ -51,3 +64,11 @@ content:
 	else\
 		echo 'something else';\
 	fi
+
+# how to use variable
+contentwith: TYPE=btc
+contentwith: content
+
+# how to use variable 2
+contentwith2: TYPE=eth
+contentwith2: content
